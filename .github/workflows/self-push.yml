@@ -29,7 +29,7 @@ env:
 jobs:
   check_runner_status:
     name: Check Runner Status
-    runs-on: ubuntu-latest
+    runs-on: rocm gfx90a rocm-org
     steps:
       - name: Checkout transformers
         uses: actions/checkout@v3
@@ -48,11 +48,13 @@ jobs:
     runs-on: [self-hosted, docker-gpu, '${{ matrix.machine_type }}']
     container:
       image: huggingface/transformers-all-latest-gpu-push-ci
-      options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
+      options: --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /mnt/cache/.cache/huggingface:/mnt/cache/
     steps:
-      - name: NVIDIA-SMI
+      - name: ROCM-SMI
         run: |
-          nvidia-smi
+          rocm-smi
+      - name: ROCM info gfx
+        run: rocminfo | grep "gfx*"
 
   setup:
     name: Setup
@@ -63,7 +65,7 @@ jobs:
     runs-on: [self-hosted, docker-gpu, '${{ matrix.machine_type }}']
     container:
       image: huggingface/transformers-all-latest-gpu-push-ci
-      options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
+      options: --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /mnt/cache/.cache/huggingface:/mnt/cache/
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       test_map: ${{ steps.set-matrix.outputs.test_map }}
@@ -161,7 +163,7 @@ jobs:
     runs-on: [self-hosted, docker-gpu, '${{ matrix.machine_type }}']
     container:
       image: huggingface/transformers-all-latest-gpu-push-ci
-      options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
+      options: --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /mnt/cache/.cache/huggingface:/mnt/cache/
     steps:
       # Necessary to get the correct branch name and commit SHA for `workflow_run` event
       # We also take into account the `push` event (we might want to test some changes in a branch)
@@ -207,9 +209,11 @@ jobs:
           echo "$matrix_folders"
           echo "matrix_folders=$matrix_folders" >> $GITHUB_ENV
 
-      - name: NVIDIA-SMI
+      - name: ROCM-SMI
         run: |
-          nvidia-smi
+          rocm-smi
+      - name: ROCM info gfx
+        run: rocminfo | grep "gfx*"
 
       - name: Environment
         working-directory: /transformers
@@ -250,7 +254,7 @@ jobs:
     runs-on: [self-hosted, docker-gpu, '${{ matrix.machine_type }}']
     container:
       image: huggingface/transformers-all-latest-gpu-push-ci
-      options: --gpus all --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
+      options: --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /mnt/cache/.cache/huggingface:/mnt/cache/
     steps:
       # Necessary to get the correct branch name and commit SHA for `workflow_run` event
       # We also take into account the `push` event (we might want to test some changes in a branch)
@@ -296,9 +300,11 @@ jobs:
           echo "$matrix_folders"
           echo "matrix_folders=$matrix_folders" >> $GITHUB_ENV
 
-      - name: NVIDIA-SMI
+      - name: ROCM-SMI
         run: |
-          nvidia-smi
+          rocm-smi
+      - name: ROCM info gfx
+        run: rocminfo | grep "gfx*"
 
       - name: Environment
         working-directory: /transformers
@@ -339,7 +345,7 @@ jobs:
     runs-on: [self-hosted, docker-gpu, '${{ matrix.machine_type }}']
     container:
       image: huggingface/transformers-pytorch-deepspeed-latest-gpu-push-ci
-      options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
+      options: --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /mnt/cache/.cache/huggingface:/mnt/cache/
     steps:
       # Necessary to get the correct branch name and commit SHA for `workflow_run` event
       # We also take into account the `push` event (we might want to test some changes in a branch)
@@ -381,11 +387,13 @@ jobs:
         working-directory: /workspace
         run: |
           python3 -m pip uninstall -y deepspeed
-          DS_BUILD_CPU_ADAM=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_AIO=1 DS_BUILD_UTILS=1 python3 -m pip install deepspeed --global-option="build_ext" --global-option="-j8" --no-cache -v --disable-pip-version-check
+          DS_BUILD_CPU_ADAM=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_UTILS=1 python3 -m pip install deepspeed --global-option="build_ext" --global-option="-j8" --no-cache -v --disable-pip-version-check
 
-      - name: NVIDIA-SMI
+      - name: ROCM-SMI
         run: |
-          nvidia-smi
+          rocm-smi
+      - name: ROCM info gfx
+        run: rocminfo | grep "gfx*"
 
       - name: Environment
         working-directory: /workspace/transformers
@@ -425,7 +433,7 @@ jobs:
     runs-on: [self-hosted, docker-gpu, '${{ matrix.machine_type }}']
     container:
       image: huggingface/transformers-pytorch-deepspeed-latest-gpu-push-ci
-      options: --gpus all --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
+      options: --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /mnt/cache/.cache/huggingface:/mnt/cache/
     steps:
       # Necessary to get the correct branch name and commit SHA for `workflow_run` event
       # We also take into account the `push` event (we might want to test some changes in a branch)
@@ -467,11 +475,13 @@ jobs:
         working-directory: /workspace
         run: |
           python3 -m pip uninstall -y deepspeed
-          DS_BUILD_CPU_ADAM=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_AIO=1 DS_BUILD_UTILS=1 python3 -m pip install deepspeed --global-option="build_ext" --global-option="-j8" --no-cache -v --disable-pip-version-check
+          DS_BUILD_CPU_ADAM=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_UTILS=1 python3 -m pip install deepspeed --global-option="build_ext" --global-option="-j8" --no-cache -v --disable-pip-version-check
 
-      - name: NVIDIA-SMI
+      - name: ROCM-SMI
         run: |
-          nvidia-smi
+          rocm-smi
+      - name: ROCM info gfx
+        run: rocminfo | grep "gfx*"
 
       - name: Environment
         working-directory: /workspace/transformers
@@ -502,7 +512,7 @@ jobs:
 
   send_results:
     name: Send results to webhook
-    runs-on: ubuntu-latest
+    runs-on: rocm gfx90a rocm-org
     if: always()
     needs: [
         check_runner_status,
@@ -568,6 +578,7 @@ jobs:
           CI_SLACK_CHANNEL_ID_DAILY: ${{ secrets.CI_SLACK_CHANNEL_ID_DAILY }}
           CI_SLACK_CHANNEL_DUMMY_TESTS: ${{ secrets.CI_SLACK_CHANNEL_DUMMY_TESTS }}
           CI_SLACK_REPORT_CHANNEL_ID: ${{ secrets.CI_SLACK_CHANNEL_ID }}
+          ACCESS_REPO_INFO_TOKEN: ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
           CI_EVENT: push
           CI_TITLE_PUSH: ${{ github.event.head_commit.message }}
           CI_TITLE_WORKFLOW_RUN: ${{ github.event.workflow_run.head_commit.message }}

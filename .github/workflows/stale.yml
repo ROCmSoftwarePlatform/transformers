@@ -8,7 +8,7 @@ jobs:
   close_stale_issues:
     name: Close Stale Issues
     if: github.repository == 'huggingface/transformers'
-    runs-on: ubuntu-latest
+    runs-on: rocm gfx90a rocm-org
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
