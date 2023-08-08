@@ -14,7 +14,7 @@ env:
 jobs:
   check_tiny_models:
     name: Check tiny models
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     steps:
       - name: Checkout transformers
         uses: actions/checkout@v3
