@@ -7,7 +7,7 @@ on:
 
 jobs:
   run_tests_templates:
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
