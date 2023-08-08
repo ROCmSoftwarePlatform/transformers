@@ -14,7 +14,7 @@ on:
 
 jobs:
   check-for-setup:
-      runs-on: rocm gfx90a rocm-org
+      runs-on: rocm
       name: Check if setup was changed
       outputs:
         changed: ${{ steps.was_changed.outputs.changed }}
@@ -46,7 +46,7 @@ jobs:
 
   run_push_ci:
     name: Trigger Push CI
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     if: ${{ always() }}
     needs: build-docker-containers
     steps:
