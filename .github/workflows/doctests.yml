@@ -20,7 +20,7 @@ env:
 
 jobs:
   run_doctests:
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     container:
       image: huggingface/transformers-all-latest-gpu
       options: --device=/dev/kfd --device=/dev/dri --group-add video --ipc=host --shm-size 16G -v /mnt/cache/.cache/huggingface:/mnt/cache/
@@ -64,7 +64,7 @@ jobs:
 
   send_results:
     name: Send results to webhook
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     if: always()
     needs: [run_doctests]
     steps:
