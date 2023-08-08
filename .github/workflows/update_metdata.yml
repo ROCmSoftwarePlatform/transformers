@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_and_package:
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     defaults:
       run:
         shell: bash -l {0}
