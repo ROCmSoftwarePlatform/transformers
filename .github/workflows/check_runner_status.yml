@@ -18,7 +18,7 @@ env:
 jobs:
   check_runner_status:
     name: Check Runner Status
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     outputs:
       offline_runners: ${{ steps.set-offline_runners.outputs.offline_runners }}
     steps:
@@ -39,7 +39,7 @@ jobs:
 
   send_results:
     name: Send results to webhook
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     needs: check_runner_status
     if: ${{ failure() }}
     steps:
