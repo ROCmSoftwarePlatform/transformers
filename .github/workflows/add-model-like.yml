@@ -14,7 +14,7 @@ on:
 jobs:
   run_tests_templates_like:
     name: "Add new model like template tests"
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     steps:
       - uses: actions/checkout@v3
 
