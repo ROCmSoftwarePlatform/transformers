@@ -29,7 +29,7 @@ env:
 jobs:
   check_runner_status:
     name: Check Runner Status
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     steps:
       - name: Checkout transformers
         uses: actions/checkout@v3
@@ -512,7 +512,7 @@ jobs:
 
   send_results:
     name: Send results to webhook
-    runs-on: rocm gfx90a rocm-org
+    runs-on: rocm
     if: always()
     needs: [
         check_runner_status,
