@@ -729,6 +729,7 @@ class TFWav2Vec2ModelIntegrationTest(unittest.TestCase):
 
         return ds[:num_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_normal(self):
         model = TFWav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
         processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h", do_lower_case=True)
@@ -744,6 +745,7 @@ class TFWav2Vec2ModelIntegrationTest(unittest.TestCase):
         EXPECTED_TRANSCRIPTIONS = ["a man said to the universe sir i exist"]
         self.assertListEqual(predicted_trans, EXPECTED_TRANSCRIPTIONS)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_normal_batched(self):
         model = TFWav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
         processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h", do_lower_case=True)

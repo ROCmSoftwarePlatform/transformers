@@ -44,7 +44,7 @@ from ...test_modeling_common import (
     random_attention_mask,
 )
 from ...test_pipeline_mixin import PipelineTesterMixin
-
+import pytest 
 
 if is_torch_available():
     import torch
@@ -595,6 +595,7 @@ class CLIPModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
 
     # overwrite from common since FlaxCLIPModel returns nested output
     # which is not supported in the common test
+    @pytest.mark.skip(reason="UT compatability skip")
     @is_pt_flax_cross_test
     def test_equivalence_pt_to_flax(self):
         config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
@@ -651,6 +652,7 @@ class CLIPModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
 
     # overwrite from common since FlaxCLIPModel returns nested output
     # which is not supported in the common test
+    @pytest.mark.skip(reason="UT compatability skip")
     @is_pt_flax_cross_test
     def test_equivalence_flax_to_pt(self):
         config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()

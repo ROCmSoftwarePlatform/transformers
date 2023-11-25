@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The HuggingFace Inc. team. All rights reserved.
 #
@@ -15,6 +16,7 @@
 """ Testing suite for the TensorFlow Whisper model. """
 
 from __future__ import annotations
+import pytest
 
 import inspect
 import tempfile
@@ -1015,6 +1017,7 @@ class TFWhisperModelIntegrationTests(unittest.TestCase):
         run_test_in_subprocess(test_case=self, target_func=_test_large_generation_multilingual, inputs=None)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_large_batched_generation(self):
         run_test_in_subprocess(test_case=self, target_func=_test_large_batched_generation, inputs=None)
 

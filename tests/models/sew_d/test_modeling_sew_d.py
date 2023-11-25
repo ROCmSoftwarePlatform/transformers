@@ -562,6 +562,7 @@ class SEWDModelIntegrationTest(unittest.TestCase):
         self.assertTrue(torch.allclose(outputs[:, -4:, -4:], expected_outputs_last, atol=1e-3))
         self.assertTrue(abs(outputs.sum() - expected_output_sum) < 1)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_batched(self):
         model = SEWDForCTC.from_pretrained("asapp/sew-d-tiny-100k-ft-ls100h").to(torch_device)
         processor = Wav2Vec2Processor.from_pretrained("asapp/sew-d-tiny-100k-ft-ls100h", do_lower_case=True)

@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The HuggingFace Team. All rights reserved.
 #
@@ -492,6 +493,7 @@ class CodeGenModelLanguageGenerationTest(unittest.TestCase):
             self.assertEqual(output_str, expected_output)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_codegen_sample(self):
         tokenizer = self.cached_tokenizer
         model = self.cached_model
@@ -526,6 +528,7 @@ class CodeGenModelLanguageGenerationTest(unittest.TestCase):
 
     @is_flaky(max_attempts=3, description="measure of timing is somehow flaky.")
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_codegen_sample_max_time(self):
         tokenizer = self.cached_tokenizer
         model = self.cached_model

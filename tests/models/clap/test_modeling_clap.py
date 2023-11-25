@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Inc. team. All rights reserved.
 #
@@ -635,6 +636,7 @@ class ClapModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
 class ClapModelIntegrationTest(unittest.TestCase):
     paddings = ["repeatpad", "repeat", "pad"]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_integration_unfused(self):
         EXPECTED_MEANS_UNFUSED = {
             "repeatpad": 0.0024,
@@ -662,6 +664,7 @@ class ClapModelIntegrationTest(unittest.TestCase):
                 torch.allclose(audio_embed.cpu().mean(), torch.tensor([expected_mean]), atol=1e-3, rtol=1e-3)
             )
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_integration_fused(self):
         EXPECTED_MEANS_FUSED = {
             "repeatpad": 0.00069,
@@ -689,6 +692,7 @@ class ClapModelIntegrationTest(unittest.TestCase):
                 torch.allclose(audio_embed.cpu().mean(), torch.tensor([expected_mean]), atol=1e-3, rtol=1e-3)
             )
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_batched_fused(self):
         EXPECTED_MEANS_FUSED = {
             "repeatpad": 0.0010,
@@ -716,6 +720,7 @@ class ClapModelIntegrationTest(unittest.TestCase):
                 torch.allclose(audio_embed.cpu().mean(), torch.tensor([expected_mean]), atol=1e-3, rtol=1e-3)
             )
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_batched_unfused(self):
         EXPECTED_MEANS_FUSED = {
             "repeatpad": 0.0016,

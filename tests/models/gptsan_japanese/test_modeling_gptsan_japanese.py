@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 Toshiyuki Sakamoto(tanreinama) and HuggingFace Inc. team.
 #

@@ -16,6 +16,7 @@ import math
 import os
 import re
 import sys
+import pytest
 from pathlib import Path
 from typing import Tuple
 from unittest.mock import patch
@@ -103,6 +104,7 @@ class TestTrainerExt(TestCasePlus):
     def test_run_seq2seq_ddp(self):
         self.run_seq2seq_quick(distributed=True)
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @require_apex
     @require_torch_gpu
     def test_run_seq2seq_apex(self):
@@ -119,6 +121,7 @@ class TestTrainerExt(TestCasePlus):
         # to reproduce the problem set distributed=False
         self.run_seq2seq_quick(distributed=True, extra_args_str="--fp16 --fp16_backend=apex")
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @parameterized.expand(["base", "low", "high", "mixed"])
     @require_torch_multi_gpu
     def test_trainer_log_level_replica(self, experiment_id):

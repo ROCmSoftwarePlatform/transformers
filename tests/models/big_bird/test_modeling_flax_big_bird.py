@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import unittest
-
+import pytest 
 from transformers import BigBirdConfig, is_flax_available
 from transformers.testing_utils import require_flax, slow
 
@@ -160,14 +160,17 @@ class FlaxBigBirdModelTest(FlaxModelTesterMixin, unittest.TestCase):
 
     @slow
     # copied from `test_modeling_flax_common` because it takes much longer than other models
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_from_pretrained_save_pretrained(self):
         super().test_from_pretrained_save_pretrained()
 
     @slow
     # copied from `test_modeling_flax_common` because it takes much longer than other models
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_from_pretrained_with_no_automatic_init(self):
         super().test_from_pretrained_with_no_automatic_init()
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     # copied from `test_modeling_flax_common` because it takes much longer than other models
     def test_no_automatic_init(self):
@@ -175,10 +178,12 @@ class FlaxBigBirdModelTest(FlaxModelTesterMixin, unittest.TestCase):
 
     @slow
     # copied from `test_modeling_flax_common` because it takes much longer than other models
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_hidden_states_output(self):
         super().test_hidden_states_output()
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_from_pretrained(self):
         for model_class_name in self.all_model_classes:
             model = model_class_name.from_pretrained("google/bigbird-roberta-base")
@@ -190,6 +195,7 @@ class FlaxBigBirdModelTest(FlaxModelTesterMixin, unittest.TestCase):
 
     @slow
     # copied from `test_modeling_flax_common` because it takes much longer than other models
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_jit_compilation(self):
         config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
 

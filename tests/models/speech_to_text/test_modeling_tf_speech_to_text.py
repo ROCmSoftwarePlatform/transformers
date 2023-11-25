@@ -15,6 +15,7 @@
 """ Testing suite for the TensorFlow Speech2Text model. """
 
 from __future__ import annotations
+import pytest
 
 import inspect
 import unittest

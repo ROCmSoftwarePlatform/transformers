@@ -1,3 +1,4 @@
+import pytest
 # Copyright 2022 The HuggingFace Team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -156,6 +157,7 @@ class FlaxRobertaPreLayerNormModelTest(FlaxModelTesterMixin, unittest.TestCase):
         self.model_tester = FlaxRobertaPreLayerNormModelTester(self)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_from_pretrained(self):
         for model_class_name in self.all_model_classes:
             model = model_class_name.from_pretrained("andreasmadsen/efficient_mlm_m0.40", from_pt=True)

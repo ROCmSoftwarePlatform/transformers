@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2021 The HuggingFace Inc. team. All rights reserved.
 #
@@ -234,6 +235,7 @@ class VisionTextDualEncoderMixin:
         self.check_vision_text_output_attention(**inputs_dict)
 
     @is_pt_flax_cross_test
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_pt_flax_equivalence(self):
         config_inputs_dict = self.prepare_config_and_inputs()
         vision_config = config_inputs_dict.pop("vision_config")

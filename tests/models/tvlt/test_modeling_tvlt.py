@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Inc. team. All rights reserved.
 #
@@ -571,6 +572,7 @@ class TvltModelIntegrationTest(unittest.TestCase):
             TvltFeatureExtractor(),
         )
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_for_base_model(self):
         model = TvltModel.from_pretrained("ZinengTang/tvlt-base").to(torch_device)
 

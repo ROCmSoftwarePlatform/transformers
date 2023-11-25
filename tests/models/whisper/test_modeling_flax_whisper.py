@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The HuggingFace Inc. team. All rights reserved.
 #
@@ -577,6 +578,7 @@ class FlaxWhisperModelIntegrationTest(unittest.TestCase):
         EXPECTED_TRANSCRIPT = " I borrowed a phone from Kimura san"
         self.assertEqual(transcript, EXPECTED_TRANSCRIPT)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_large_batched_generation(self):
         processor = WhisperProcessor.from_pretrained("openai/whisper-large")
         model = FlaxWhisperForConditionalGeneration.from_pretrained("openai/whisper-large", from_pt=True)

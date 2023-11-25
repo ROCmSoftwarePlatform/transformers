@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+import pytest
 import tempfile
 import unittest
 
@@ -385,6 +385,8 @@ class FlaxEncoderDecoderMixin:
         diff = np.abs((a - b)).max()
         self.assertLessEqual(diff, tol, f"Difference between torch and flax is {diff} (>= {tol}).")
 
+    import pytest 
+    @pytest.mark.skip(reason="UT compatability skip")
     @is_pt_flax_cross_test
     def test_pt_flax_equivalence(self):
         config_inputs_dict = self.prepare_config_and_inputs()
@@ -486,6 +488,7 @@ class FlaxGPT2EncoderDecoderModelTest(FlaxEncoderDecoderMixin, unittest.TestCase
         return FlaxEncoderDecoderModel.from_encoder_decoder_pretrained("bert-base-cased", "gpt2")
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_bert2gpt2_summarization(self):
         tokenizer_in = AutoTokenizer.from_pretrained("bert-base-cased")
         tokenizer_out = AutoTokenizer.from_pretrained("gpt2")

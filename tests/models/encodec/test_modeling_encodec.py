@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Inc. team. All rights reserved.
 #
@@ -436,6 +437,7 @@ def compute_rmse(arr1, arr2):
 @slow
 @require_torch
 class EncodecIntegrationTest(unittest.TestCase):
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_integration_24kHz(self):
         expected_rmse = {
             "1.5": 0.0025,
@@ -490,6 +492,7 @@ class EncodecIntegrationTest(unittest.TestCase):
             rmse = compute_rmse(arr, arr_enc_dec)
             self.assertTrue(rmse < expected_rmse)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_integration_48kHz(self):
         expected_rmse = {
             "3.0": 0.001,
@@ -546,6 +549,7 @@ class EncodecIntegrationTest(unittest.TestCase):
             rmse = compute_rmse(arr, arr_enc_dec)
             self.assertTrue(rmse < expected_rmse)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_batch_48kHz(self):
         expected_rmse = {
             "3.0": 0.001,

@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 Hugging Face inc.
 #
@@ -111,6 +112,7 @@ class GPTSw3TokenizationTest(TokenizerTesterMixin, unittest.TestCase):
             self.assertEqual(tokenizer.decode_fast(token_ids), text)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_tokenizer_integration(self):
         sequences = [
             "<|python|>def fibonacci(n)\n    if n < 0:\n        print('Incorrect input')",

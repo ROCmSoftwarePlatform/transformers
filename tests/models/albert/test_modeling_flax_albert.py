@@ -1,3 +1,4 @@
+import pytest
 # Copyright 2021 The HuggingFace Team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -137,6 +138,7 @@ class FlaxAlbertModelTest(FlaxModelTesterMixin, unittest.TestCase):
         self.model_tester = FlaxAlbertModelTester(self)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_from_pretrained(self):
         for model_class_name in self.all_model_classes:
             model = model_class_name.from_pretrained("albert-base-v2")

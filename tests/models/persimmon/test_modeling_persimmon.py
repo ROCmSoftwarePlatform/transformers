@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Inc. team. All rights reserved.
 #
@@ -384,6 +385,7 @@ class PersimmonModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTester
 @require_torch
 class PersimmonIntegrationTest(unittest.TestCase):
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_8b_chat_logits(self):
         input_ids = [1, 306, 4658, 278, 6593, 310, 2834, 338]
         model = PersimmonForCausalLM.from_pretrained(

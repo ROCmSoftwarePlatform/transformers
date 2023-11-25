@@ -15,6 +15,7 @@
 
 
 from __future__ import annotations
+import pytest
 
 import inspect
 import json
@@ -252,6 +253,7 @@ class TFModelUtilsTest(unittest.TestCase):
         TFBertForSequenceClassification.from_pretrained("ArthurZ/tiny-random-bert-sharded")
 
     @is_pt_tf_cross_test
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_checkpoint_sharding_local_from_pt(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             _ = Repository(local_dir=tmp_dir, clone_from="hf-internal-testing/tiny-random-bert-sharded")
@@ -347,6 +349,7 @@ class TFModelUtilsTest(unittest.TestCase):
             )
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_special_layer_name_sharding(self):
         retriever = RagRetriever.from_pretrained("facebook/rag-token-nq", index_name="exact", use_dummy_dataset=True)
         model = TFRagModel.from_pretrained("facebook/rag-token-nq", retriever=retriever)

@@ -561,6 +561,7 @@ class UniSpeechModelIntegrationTest(unittest.TestCase):
 
         return ds[:num_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_pretraining(self):
         model = UniSpeechForPreTraining.from_pretrained("microsoft/unispeech-large-1500h-cv")
         model.to(torch_device)

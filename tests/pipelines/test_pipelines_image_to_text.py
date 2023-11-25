@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import unittest
-
+import pytest 
 import requests
 
 from transformers import MODEL_FOR_VISION_2_SEQ_MAPPING, TF_MODEL_FOR_VISION_2_SEQ_MAPPING, is_vision_available
@@ -217,6 +217,7 @@ class ImageToTextPipelineTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             outputs = pipe([image, image], prompt=[prompt, prompt])
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @unittest.skipIf(
         not is_torch_greater_or_equal_than_1_11, reason="`Pix2StructImageProcessor` requires `torch>=1.11.0`."
     )

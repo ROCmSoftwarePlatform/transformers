@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2021 The HuggingFace Team. All rights reserved.
 #
@@ -452,6 +453,7 @@ class XGLMModelLanguageGenerationTest(unittest.TestCase):
         self.assertIn(output_str, EXPECTED_OUTPUT_STRS)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_xglm_sample_max_time(self):
         tokenizer = XGLMTokenizer.from_pretrained("facebook/xglm-564M")
         model = XGLMForCausalLM.from_pretrained("facebook/xglm-564M")

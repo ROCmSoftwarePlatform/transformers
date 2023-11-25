@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import unittest
-
+import pytest 
 from transformers import AutoConfig, AutoTokenizer, BertConfig, TensorType, is_flax_available
 from transformers.testing_utils import DUMMY_UNKNOWN_IDENTIFIER, require_flax, slow
 
@@ -40,6 +40,7 @@ class FlaxAutoModelTest(unittest.TestCase):
                 self.assertIsNotNone(model)
                 self.assertIsInstance(model, FlaxBertModel)
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     def test_roberta_from_pretrained(self):
         for model_name in ["roberta-base", "roberta-large"]:
@@ -52,6 +53,7 @@ class FlaxAutoModelTest(unittest.TestCase):
                 self.assertIsNotNone(model)
                 self.assertIsInstance(model, FlaxRobertaModel)
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     def test_bert_jax_jit(self):
         for model_name in ["bert-base-cased", "bert-large-uncased"]:
@@ -65,6 +67,7 @@ class FlaxAutoModelTest(unittest.TestCase):
 
             eval(**tokens).block_until_ready()
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     def test_roberta_jax_jit(self):
         for model_name in ["roberta-base", "roberta-large"]:

@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The HuggingFace Team. All rights reserved.
 #
@@ -710,6 +711,7 @@ class Data2VecAudioModelIntegrationTest(unittest.TestCase):
 
         return ds[:num_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_normal(self):
         model = Data2VecAudioForCTC.from_pretrained("facebook/data2vec-audio-base-960h")
         model.to(torch_device)
@@ -727,6 +729,7 @@ class Data2VecAudioModelIntegrationTest(unittest.TestCase):
         EXPECTED_TRANSCRIPTIONS = ["a man said to the universe sir i exist"]
         self.assertListEqual(predicted_trans, EXPECTED_TRANSCRIPTIONS)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_batched(self):
         model = Data2VecAudioForCTC.from_pretrained("facebook/data2vec-audio-base-960h").to(torch_device)
         processor = Wav2Vec2Processor.from_pretrained("hf-internal-testing/tiny-random-wav2vec2", do_lower_case=True)

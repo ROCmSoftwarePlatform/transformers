@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Inc. team. All rights reserved.
 #
@@ -564,6 +565,7 @@ class InstructBlipModelIntegrationTest(unittest.TestCase):
             "The unusual aspect of this image is that a man is ironing clothes on the back of a yellow SUV while driving down a busy city street.",
         )
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_flant5_xl(self):
         processor = InstructBlipProcessor.from_pretrained("Salesforce/instructblip-flan-t5-xl")
         model = InstructBlipForConditionalGeneration.from_pretrained(

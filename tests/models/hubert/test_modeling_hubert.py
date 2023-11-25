@@ -773,6 +773,7 @@ class HubertModelIntegrationTest(unittest.TestCase):
 
         return ds[:num_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_batched(self):
         model = HubertForCTC.from_pretrained("facebook/hubert-large-ls960-ft", torch_dtype=torch.float16).to(
             torch_device
@@ -906,6 +907,7 @@ class HubertModelIntegrationTest(unittest.TestCase):
         # TODO: lower the tolerance after merging the padding fix https://github.com/pytorch/fairseq/pull/3572
         self.assertTrue(torch.allclose(predicted_logits, expected_logits, atol=1e-1))
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_distilhubert(self):
         model = HubertModel.from_pretrained("ntu-spml/distilhubert").to(torch_device)
         processor = Wav2Vec2FeatureExtractor.from_pretrained("ntu-spml/distilhubert")

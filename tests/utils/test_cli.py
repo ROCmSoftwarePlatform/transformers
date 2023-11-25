@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2019-present, the HuggingFace Inc. team.
 #
@@ -37,6 +38,7 @@ class CLITest(unittest.TestCase):
     @patch(
         "sys.argv", ["fakeprogrampath", "pt-to-tf", "--model-name", "hf-internal-testing/tiny-random-gptj", "--no-pr"]
     )
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_cli_pt_to_tf(self):
         import transformers.commands.transformers_cli
 

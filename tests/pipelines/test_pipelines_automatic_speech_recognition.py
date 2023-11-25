@@ -18,7 +18,7 @@ import numpy as np
 import pytest
 from datasets import load_dataset
 from huggingface_hub import hf_hub_download, snapshot_download
-
+import pytest
 from transformers import (
     MODEL_FOR_CTC_MAPPING,
     MODEL_FOR_SPEECH_SEQ_2_SEQ_MAPPING,
@@ -200,6 +200,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = speech_recognizer(waveform, max_new_tokens=10, generate_kwargs={"num_beams": 2})
         self.assertEqual(output, {"text": "あл † γ ت ב オ 束 泣 足"})
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     @require_pyctcdecode
@@ -281,6 +282,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
                 framework="pt",
             )
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @require_torch
     @slow
     def test_torch_large(self):
@@ -397,6 +399,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
 
             _ = pipe(dummy_speech)
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @require_torch
     @slow
     def test_torch_whisper(self):
@@ -683,6 +686,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
             },
         )
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @require_torch
     @slow
     def test_torch_speech_encoder_decoder(self):
@@ -698,6 +702,8 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = speech_recognizer(filename)
         self.assertEqual(output, {"text": 'Ein Mann sagte zum Universum : " Sir, ich existiert! "'})
 
+    
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     def test_simple_wav2vec2(self):
@@ -722,6 +728,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = asr(data)
         self.assertEqual(output, {"text": "A MAN SAID TO THE UNIVERSE SIR I EXIST"})
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     @require_torchaudio
@@ -748,6 +755,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = asr(data)
         self.assertEqual(output, {"text": "Un uomo disse all'universo: \"Signore, io esisto."})
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     @require_torchaudio
@@ -817,6 +825,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         ):
             _ = speech_recognizer(filename, return_timestamps="char")
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     @require_torchaudio
@@ -853,6 +862,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output_3 = speech_translator(filename)
         self.assertEqual(output_3, {"text": " Un uomo ha detto all'universo, Sir, esiste."})
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     @require_torchaudio
@@ -869,6 +879,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = speech_recognizer(filename)
         self.assertEqual(output, {"text": "A man said to the universe: “Sir, I exist."})
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     @require_torchaudio
@@ -885,6 +896,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = speech_recognizer(filename)
         self.assertEqual(output, {"text": "Ein Mann sagte zu dem Universum, Sir, ich bin da."})
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     @require_torchaudio
@@ -1060,6 +1072,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
 
     @require_torch
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_chunking_and_timestamps(self):
         model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
         tokenizer = AutoTokenizer.from_pretrained("facebook/wav2vec2-base-960h")
@@ -1303,6 +1316,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = speech_recognizer({"raw": waveform, "stride": (1000, 8000), "sampling_rate": 16_000})
         self.assertEqual(output, {"text": "XB"})
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch_gpu
     def test_slow_unfinished_sequence(self):

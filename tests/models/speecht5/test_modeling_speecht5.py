@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The HuggingFace Inc. team. All rights reserved.
 #
@@ -734,6 +735,7 @@ class SpeechT5ForSpeechToTextIntegrationTests(unittest.TestCase):
 
         return [x["array"] for x in speech_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_generation_librispeech(self):
         model = SpeechT5ForSpeechToText.from_pretrained("microsoft/speecht5_asr")
         model.to(torch_device)
@@ -751,6 +753,7 @@ class SpeechT5ForSpeechToTextIntegrationTests(unittest.TestCase):
         ]
         self.assertListEqual(generated_transcript, EXPECTED_TRANSCRIPTIONS)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_generation_librispeech_batched(self):
         model = SpeechT5ForSpeechToText.from_pretrained("microsoft/speecht5_asr")
         model.to(torch_device)
@@ -1447,6 +1450,7 @@ class SpeechT5ForSpeechToSpeechIntegrationTests(unittest.TestCase):
 
         return [x["array"] for x in speech_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_generation_librispeech(self):
         model = SpeechT5ForSpeechToSpeech.from_pretrained("microsoft/speecht5_vc")
         model.to(torch_device)

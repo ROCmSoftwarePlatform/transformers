@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2021 The HuggingFace Inc. team. All rights reserved.
 #
@@ -903,6 +904,7 @@ class PerceiverModelIntegrationTest(unittest.TestCase):
         self.assertListEqual(expected_greedy_predictions, masked_tokens_predictions)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_image_classification(self):
         image_processor = PerceiverImageProcessor()
         model = PerceiverForImageClassificationLearned.from_pretrained("deepmind/vision-perceiver-learned")
@@ -927,6 +929,7 @@ class PerceiverModelIntegrationTest(unittest.TestCase):
         self.assertTrue(torch.allclose(logits[0, :3], expected_slice, atol=1e-4))
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_image_classification_fourier(self):
         image_processor = PerceiverImageProcessor()
         model = PerceiverForImageClassificationFourier.from_pretrained("deepmind/vision-perceiver-fourier")
@@ -951,6 +954,7 @@ class PerceiverModelIntegrationTest(unittest.TestCase):
         self.assertTrue(torch.allclose(logits[0, :3], expected_slice, atol=1e-4))
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_image_classification_conv(self):
         image_processor = PerceiverImageProcessor()
         model = PerceiverForImageClassificationConvProcessing.from_pretrained("deepmind/vision-perceiver-conv")

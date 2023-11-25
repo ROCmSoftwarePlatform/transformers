@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 Google SwitchTransformers Authors and HuggingFace Inc. team.
 #

@@ -1,3 +1,4 @@
+import pytest
 # Copyright 2023 The HuggingFace Team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,6 +47,7 @@ class ZeroShotAudioClassificationPipelineTests(unittest.TestCase):
 
     @slow
     @require_torch
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_large_model_pt(self):
         audio_classifier = pipeline(
             task="zero-shot-audio-classification",

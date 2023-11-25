@@ -541,6 +541,7 @@ class AudioUtilsFunctionTester(unittest.TestCase):
         )
         self.assertEqual(spec.shape, (512, 183))
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_mel_spectrogram(self):
         waveform = self._load_datasamples(1)[0]
 

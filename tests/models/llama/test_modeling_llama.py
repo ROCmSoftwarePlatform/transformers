@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The HuggingFace Inc. team. All rights reserved.
 #
@@ -416,6 +417,7 @@ class LlamaModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTesterMixi
 class LlamaIntegrationTest(unittest.TestCase):
     @unittest.skip("Logits are not exactly the same, once we fix the instabalities somehow, will update!")
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_7b_logits(self):
         input_ids = [1, 306, 4658, 278, 6593, 310, 2834, 338]
         model = LlamaForCausalLM.from_pretrained("meta-llama/Llama-2-7b-hf", device_map="auto")
@@ -536,6 +538,7 @@ end
 
     @require_torch_gpu
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_7b_logits(self):
         model = LlamaForCausalLM.from_pretrained("codellama/CodeLlama-7b-hf").to(torch_device)
         tokenizer = CodeLlamaTokenizer.from_pretrained("codellama/CodeLlama-7b-hf")

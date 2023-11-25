@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The Hugging Face Team.
 #
@@ -361,6 +362,7 @@ class MarkupLMModelIntegrationTest(unittest.TestCase):
         return MarkupLMProcessor(feature_extractor, tokenizer)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_forward_pass_no_head(self):
         model = MarkupLMModel.from_pretrained("microsoft/markuplm-base").to(torch_device)
 

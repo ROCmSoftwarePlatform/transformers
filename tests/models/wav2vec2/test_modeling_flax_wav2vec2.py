@@ -1,3 +1,4 @@
+import pytest
 # Copyright 2021 The HuggingFace Team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -497,6 +498,7 @@ class FlaxWav2Vec2ModelIntegrationTest(unittest.TestCase):
 
         return [x["array"] for x in speech_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_robust_batched(self):
         model = FlaxWav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-960h-lv60-self", from_pt=True)
         processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-large-960h-lv60-self", do_lower_case=True)

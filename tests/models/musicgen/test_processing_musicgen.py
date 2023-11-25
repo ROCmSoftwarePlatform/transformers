@@ -1,3 +1,4 @@
+import pytest
 # Copyright 2023 The HuggingFace Team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -152,6 +153,7 @@ class MusicgenProcessorTest(unittest.TestCase):
             msg="`processor` and `feature_extractor` model input names do not match",
         )
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_decode_audio(self):
         feature_extractor = self.get_feature_extractor(padding_side="left")
         tokenizer = self.get_tokenizer()

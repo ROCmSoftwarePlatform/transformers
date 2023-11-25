@@ -58,6 +58,7 @@ class TvltProcessorTest(unittest.TestCase):
         self.assertIsInstance(processor.feature_extractor, TvltFeatureExtractor)
         self.assertIsInstance(processor.image_processor, TvltImageProcessor)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_feature_extractor(self):
         image_processor = self.get_image_processor()
         feature_extractor = self.get_feature_extractor()

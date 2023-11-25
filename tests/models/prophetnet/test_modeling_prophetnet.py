@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2020 The HuggingFace Inc. team, The Microsoft Research team.
 #

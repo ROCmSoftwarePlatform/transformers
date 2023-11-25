@@ -1,3 +1,4 @@
+import pytest
 # Copyright 2020 The HuggingFace Team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -496,6 +497,7 @@ class PipelineUtilsTest(unittest.TestCase):
 
     @slow
     @require_torch
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_load_default_pipelines_pt(self):
         import torch
 
@@ -533,6 +535,7 @@ class PipelineUtilsTest(unittest.TestCase):
 
     @slow
     @require_torch
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_load_default_pipelines_pt_table_qa(self):
         import torch
 

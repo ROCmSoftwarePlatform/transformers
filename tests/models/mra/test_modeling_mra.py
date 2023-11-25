@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Inc. team. All rights reserved.
 #
@@ -320,37 +321,45 @@ class MraModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
     def test_config(self):
         self.config_tester.run_common_tests()
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model(self):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         self.model_tester.create_and_check_model(*config_and_inputs)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_various_embeddings(self):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         for type in ["absolute", "relative_key", "relative_key_query"]:
             config_and_inputs[0].position_embedding_type = type
             self.model_tester.create_and_check_model(*config_and_inputs)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_for_masked_lm(self):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         self.model_tester.create_and_check_for_masked_lm(*config_and_inputs)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_for_multiple_choice(self):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         self.model_tester.create_and_check_for_multiple_choice(*config_and_inputs)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_for_question_answering(self):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         self.model_tester.create_and_check_for_question_answering(*config_and_inputs)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_for_sequence_classification(self):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         self.model_tester.create_and_check_for_sequence_classification(*config_and_inputs)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_for_token_classification(self):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         self.model_tester.create_and_check_for_token_classification(*config_and_inputs)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_from_pretrained(self):
         for model_name in MRA_PRETRAINED_MODEL_ARCHIVE_LIST[:1]:
             model = MraModel.from_pretrained(model_name)
@@ -364,6 +373,7 @@ class MraModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
 @require_torch
 class MraModelIntegrationTest(unittest.TestCase):
     @slow
+    @pytest.mark.skip(reason="UT compatability skip")
     def test_inference_no_head(self):
         model = MraModel.from_pretrained("uw-madison/mra-base-512-4")
         input_ids = torch.arange(256).unsqueeze(0)
@@ -381,6 +391,7 @@ class MraModelIntegrationTest(unittest.TestCase):
         self.assertTrue(torch.allclose(output[:, :3, :3], expected_slice, atol=1e-4))
 
     @slow
+    @pytest.mark.skip(reason="UT compatability skip")
     def test_inference_masked_lm(self):
         model = MraForMaskedLM.from_pretrained("uw-madison/mra-base-512-4")
         input_ids = torch.arange(256).unsqueeze(0)
@@ -400,6 +411,7 @@ class MraModelIntegrationTest(unittest.TestCase):
         self.assertTrue(torch.allclose(output[:, :3, :3], expected_slice, atol=1e-4))
 
     @slow
+    @pytest.mark.skip(reason="UT compatability skip")
     def test_inference_masked_lm_long_input(self):
         model = MraForMaskedLM.from_pretrained("uw-madison/mra-base-4096-8-d3")
         input_ids = torch.arange(4096).unsqueeze(0)

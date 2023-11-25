@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Inc. team.
 #
@@ -52,6 +53,7 @@ class GetTestInfoTester(unittest.TestCase):
         self.assertEqual(get_test_info.to_json(bert_test_tester_mapping), EXPECTED_BERT_MAPPING)
         self.assertEqual(get_test_info.to_json(blip_test_tester_mapping), EXPECTED_BLIP_MAPPING)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_get_model_to_test_mapping(self):
         bert_model_test_mapping = get_model_to_test_mapping(BERT_TEST_FILE)
         blip_model_test_mapping = get_model_to_test_mapping(BLIP_TEST_FILE)

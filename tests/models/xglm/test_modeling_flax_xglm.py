@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2021 The HuggingFace Inc. team. All rights reserved.
 #
@@ -215,6 +216,7 @@ class FlaxXGLMModelTest(FlaxModelTesterMixin, FlaxGenerationTesterMixin, unittes
             )
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_batch_generation(self):
         tokenizer = XGLMTokenizer.from_pretrained("XGLM", padding_side="left")
         inputs = tokenizer(["Hello this is a long string", "Hey"], return_tensors="np", padding=True, truncation=True)

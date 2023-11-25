@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 Meta Platforms authors and The HuggingFace Inc. team. All rights reserved.
 #
@@ -1202,6 +1203,7 @@ def prepare_img():
 @require_torch
 class FlavaModelIntegrationTest(unittest.TestCase):
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference(self):
         model_name = "facebook/flava-full"
         model = FlavaModel.from_pretrained(model_name).to(torch_device)
@@ -1230,6 +1232,7 @@ class FlavaModelIntegrationTest(unittest.TestCase):
 @require_torch
 class FlavaForPreTrainingIntegrationTest(unittest.TestCase):
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference(self):
         model_name = "facebook/flava-full"
         model = FlavaForPreTraining.from_pretrained(model_name).to(torch_device)

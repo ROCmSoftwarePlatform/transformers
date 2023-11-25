@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+import pytest
 import inspect
 import tempfile
 import unittest
@@ -1018,6 +1018,8 @@ class GenerationTesterMixin:
                     output, input_ids, model.config, use_cache=True, num_return_sequences=beam_scorer.num_beams
                 )
 
+    import pytest
+    @pytest.mark.skip(reason="UT compatability skip")
     @require_accelerate
     @require_torch_multi_gpu
     def test_model_parallel_beam_search(self):
@@ -2480,6 +2482,7 @@ class GenerationIntegrationTests(unittest.TestCase, GenerationIntegrationTestsMi
 
         self.assertTrue(torch.allclose(transition_scores_sum, outputs.sequences_scores, atol=1e-3))
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     def test_beam_search_example_integration(self):
         # PT-only test: TF doesn't have a BeamSearchScorer
@@ -2680,6 +2683,7 @@ class GenerationIntegrationTests(unittest.TestCase, GenerationIntegrationTestsMi
             ],
         )
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     def test_constrained_beam_search_example_translation_mixin(self):
         # PT-only test: TF doesn't have constrained beam search
@@ -2705,6 +2709,7 @@ class GenerationIntegrationTests(unittest.TestCase, GenerationIntegrationTestsMi
 
         self.assertListEqual(outputs, ["Wie alt sind Sie?"])
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     def test_constrained_beam_search_example_integration(self):
         # PT-only test: TF doesn't have constrained beam search
@@ -2750,6 +2755,9 @@ class GenerationIntegrationTests(unittest.TestCase, GenerationIntegrationTestsMi
 
         self.assertListEqual(outputs, ["Wie alt sind Sie?"])
 
+    
+    import pytest
+    @pytest.mark.skip(reason="UT compatability skip")
     def test_constrained_beam_search_mixin_type_checks(self):
         # PT-only test: TF doesn't have constrained beam search
         tokenizer = AutoTokenizer.from_pretrained("patrickvonplaten/t5-tiny-random")

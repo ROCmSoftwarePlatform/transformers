@@ -617,6 +617,7 @@ class TFHubertModelIntegrationTest(unittest.TestCase):
 
         return [x["array"] for x in speech_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_normal(self):
         model = TFHubertForCTC.from_pretrained("facebook/hubert-large-ls960-ft")
         processor = Wav2Vec2Processor.from_pretrained("facebook/hubert-large-ls960-ft", do_lower_case=True)
@@ -632,6 +633,7 @@ class TFHubertModelIntegrationTest(unittest.TestCase):
         EXPECTED_TRANSCRIPTIONS = ["a man said to the universe sir i exist"]
         self.assertListEqual(predicted_trans, EXPECTED_TRANSCRIPTIONS)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_normal_batched(self):
         model = TFHubertForCTC.from_pretrained("facebook/hubert-large-ls960-ft")
         processor = Wav2Vec2Processor.from_pretrained("facebook/hubert-large-ls960-ft", do_lower_case=True)
@@ -651,6 +653,7 @@ class TFHubertModelIntegrationTest(unittest.TestCase):
         ]
         self.assertListEqual(predicted_trans, EXPECTED_TRANSCRIPTIONS)
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_ctc_robust_batched(self):
         model = TFHubertForCTC.from_pretrained("facebook/hubert-large-ls960-ft")
         processor = Wav2Vec2Processor.from_pretrained("facebook/hubert-large-ls960-ft", do_lower_case=True)

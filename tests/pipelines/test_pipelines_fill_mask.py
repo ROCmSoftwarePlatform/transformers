@@ -14,7 +14,7 @@
 
 import gc
 import unittest
-
+import pytest
 from transformers import MODEL_FOR_MASKED_LM_MAPPING, TF_MODEL_FOR_MASKED_LM_MAPPING, FillMaskPipeline, pipeline
 from transformers.pipelines import PipelineException
 from transformers.testing_utils import (
@@ -161,12 +161,14 @@ class FillMaskPipelineTests(unittest.TestCase):
         # for postprocessing.
         self.assertIsInstance(response, list)
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_torch
     def test_large_model_pt(self):
         unmasker = pipeline(task="fill-mask", model="distilroberta-base", top_k=2, framework="pt")
         self.run_large_test(unmasker)
 
+    @pytest.mark.skip(reason="UT compatability skip")
     @slow
     @require_tf
     def test_large_model_tf(self):

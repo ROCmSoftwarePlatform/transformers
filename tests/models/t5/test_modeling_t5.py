@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2018 Google T5 Authors and HuggingFace Inc. team.
 #

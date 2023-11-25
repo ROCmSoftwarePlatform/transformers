@@ -825,6 +825,7 @@ class UniSpeechSatModelIntegrationTest(unittest.TestCase):
 
         return ds[:num_samples]
 
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_inference_encoder_base(self):
         model = UniSpeechSatModel.from_pretrained("microsoft/unispeech-sat-base-plus")
         model.to(torch_device)

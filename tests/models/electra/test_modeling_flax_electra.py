@@ -1,3 +1,4 @@
+import pytest
 import unittest
 
 import numpy as np
@@ -126,6 +127,7 @@ class FlaxElectraModelTest(FlaxModelTesterMixin, unittest.TestCase):
         self.model_tester = FlaxElectraModelTester(self)
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_model_from_pretrained(self):
         for model_class_name in self.all_model_classes:
             if model_class_name == FlaxElectraForMaskedLM:

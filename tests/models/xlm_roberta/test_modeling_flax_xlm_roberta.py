@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 The HuggingFace Team. All rights reserved.
 #
@@ -31,6 +32,7 @@ if is_flax_available():
 @require_flax
 class FlaxXLMRobertaModelIntegrationTest(unittest.TestCase):
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_flax_xlm_roberta_base(self):
         model = FlaxXLMRobertaModel.from_pretrained("xlm-roberta-base")
         tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-base")

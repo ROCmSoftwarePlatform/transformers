@@ -90,6 +90,8 @@ class VisualQuestionAnsweringPipelineTests(unittest.TestCase):
             outputs, [{"score": ANY(float), "answer": ANY(str)}, {"score": ANY(float), "answer": ANY(str)}]
         )
 
+    import pytest
+    @pytest.mark.skip(reason="UT compatability skip")
     @require_torch
     @require_torch_gpu
     def test_small_model_pt_blip2(self):

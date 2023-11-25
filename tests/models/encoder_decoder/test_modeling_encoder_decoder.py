@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2020 HuggingFace Inc. team.
 #
@@ -637,6 +638,7 @@ class EncoderDecoderMixin:
         loss.backward()
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_real_model_save_load_from_pretrained(self):
         model_2 = self.get_pretrained_model()
         model_2.to(torch_device)

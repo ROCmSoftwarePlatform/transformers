@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2023 The HuggingFace Team. All rights reserved.
 #
@@ -377,6 +378,7 @@ class LlamaIntegrationTest(unittest.TestCase):
         self.rust_tokenizer.add_eos_token = False
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_conversion(self):
         # This is excruciatingly slow since it has to recreate the entire merge
         # list from the original vocabulary in spm

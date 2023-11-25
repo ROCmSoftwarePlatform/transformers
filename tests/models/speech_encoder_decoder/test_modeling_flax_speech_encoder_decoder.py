@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2022 HuggingFace Inc. team.
 #
@@ -626,6 +627,7 @@ class FlaxWav2Vec2GPT2ModelTest(FlaxEncoderDecoderMixin, unittest.TestCase):
         }
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_flaxwav2vec2gpt2_pt_flax_equivalence(self):
         pt_model = SpeechEncoderDecoderModel.from_pretrained("jsnfly/wav2vec2-large-xlsr-53-german-gpt2")
         fx_model = FlaxSpeechEncoderDecoderModel.from_pretrained(

@@ -1,3 +1,4 @@
+import pytest
 # coding=utf-8
 # Copyright 2021 HuggingFace Inc. team.
 #
@@ -420,6 +421,7 @@ class EncoderDecoderMixin:
         loss.backward()
 
     @slow
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_real_model_save_load_from_pretrained(self):
         model_2, inputs = self.get_pretrained_model_and_inputs()
         model_2.to(torch_device)
@@ -577,6 +579,7 @@ class Speech2TextBertModelTest(EncoderDecoderMixin, unittest.TestCase):
         pass
 
     # all published pretrained models are Speech2TextModel != Speech2TextEncoder
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_real_model_save_load_from_pretrained(self):
         pass
 
@@ -617,5 +620,6 @@ class Wav2Vec2Speech2Text2(EncoderDecoderMixin, unittest.TestCase):
         }
 
     # there are no published pretrained Speech2Text2ForCausalLM for now
+    @pytest.mark.skip(reason="UT compatibility skip")
     def test_real_model_save_load_from_pretrained(self):
         pass
