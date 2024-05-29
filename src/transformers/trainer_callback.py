@@ -15,6 +15,7 @@
 """
 Callbacks to use with the Trainer class and customize the training loop.
 """
+import copy
 import dataclasses
 import json
 from dataclasses import dataclass
@@ -196,7 +197,7 @@ class TrainerCallback:
         train_dataloader (`torch.utils.data.DataLoader`, *optional*):
             The current dataloader used for training.
         eval_dataloader (`torch.utils.data.DataLoader`, *optional*):
-            The current dataloader used for training.
+            The current dataloader used for evaluation.
         metrics (`Dict[str, float]`):
             The metrics computed by the last evaluation phase.
 
@@ -489,17 +490,17 @@ class ProgressCallback(TrainerCallback):
         self.prediction_bar = None
 
     def on_train_begin(self, args, state, control, **kwargs):
-        if state.is_local_process_zero:
+        if state.is_world_process_zero:
             self.training_bar = tqdm(total=state.max_steps, dynamic_ncols=True)
         self.current_step = 0
 
     def on_step_end(self, args, state, control, **kwargs):
-        if state.is_local_process_zero:
+        if state.is_world_process_zero:
             self.training_bar.update(state.global_step - self.current_step)
             self.current_step = state.global_step
 
     def on_prediction_step(self, args, state, control, eval_dataloader=None, **kwargs):
-        if state.is_local_process_zero and has_length(eval_dataloader):
+        if state.is_world_process_zero and has_length(eval_dataloader):
             if self.prediction_bar is None:
                 self.prediction_bar = tqdm(
                     total=len(eval_dataloader), leave=self.training_bar is None, dynamic_ncols=True
@@ -507,24 +508,29 @@ class ProgressCallback(TrainerCallback):
             self.prediction_bar.update(1)
 
     def on_evaluate(self, args, state, control, **kwargs):
-        if state.is_local_process_zero:
+        if state.is_world_process_zero:
             if self.prediction_bar is not None:
                 self.prediction_bar.close()
             self.prediction_bar = None
 
     def on_predict(self, args, state, control, **kwargs):
-        if state.is_local_process_zero:
+        if state.is_world_process_zero:
             if self.prediction_bar is not None:
                 self.prediction_bar.close()
             self.prediction_bar = None
 
     def on_log(self, args, state, control, logs=None, **kwargs):
-        if state.is_local_process_zero and self.training_bar is not None:
+        if state.is_world_process_zero and self.training_bar is not None:
+            # avoid modifying the logs object as it is shared between callbacks
+            logs = copy.deepcopy(logs)
             _ = logs.pop("total_flos", None)
+            # round numbers so that it looks better in console
+            if "epoch" in logs:
+                logs["epoch"] = round(logs["epoch"], 2)
             self.training_bar.write(str(logs))
 
     def on_train_end(self, args, state, control, **kwargs):
-        if state.is_local_process_zero:
+        if state.is_world_process_zero:
             self.training_bar.close()
             self.training_bar = None
 
