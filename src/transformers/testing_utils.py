@@ -180,7 +180,7 @@ else:
     IS_ROCM_SYSTEM = False
     IS_CUDA_SYSTEM = False
 
-_run_rocm_tests = parse_flag_from_env("RUN_ROCM_TESTS", default=False)
+_hf_rocm_test = parse_flag_from_env("HF_ROCM_TEST", default=False)
 
 def skipIfRocm(func=None, *, msg="test doesn't currently work on the ROCm stack"):
     def dec_fn(fn):
@@ -188,7 +188,7 @@ def skipIfRocm(func=None, *, msg="test doesn't currently work on the ROCm stack"
 
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            if _run_rocm_tests:
+            if _hf_rocm_test:
                 pytest.skip(reason)
             else:
                 return fn(*args, **kwargs)
