@@ -218,7 +218,7 @@ _tf_gpu_memory_limit = parse_int_from_env("TF_GPU_MEMORY_LIMIT", default=None)
 _run_pipeline_tests = parse_flag_from_env("RUN_PIPELINE_TESTS", default=True)
 _run_agent_tests = parse_flag_from_env("RUN_AGENT_TESTS", default=False)
 _run_third_party_device_tests = parse_flag_from_env("RUN_THIRD_PARTY_DEVICE_TESTS", default=False)
-_hf_rocm_test = parse_flag_from_env("HF_ROCM_TEST", default=False)
+_test_with_rocm = parse_flag_from_env("TEST_WITH_ROCM", default=False)
 
 def skipIfRocm(func=None, *, msg="test doesn't currently work on the ROCm stack"):
     def dec_fn(fn):
@@ -226,7 +226,7 @@ def skipIfRocm(func=None, *, msg="test doesn't currently work on the ROCm stack"
 
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            if _hf_rocm_test:
+            if _test_with_rocm:
                 pytest.skip(reason)
             else:
                 return fn(*args, **kwargs)
