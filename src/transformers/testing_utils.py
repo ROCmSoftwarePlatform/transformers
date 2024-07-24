@@ -151,6 +151,7 @@ if is_pytest_available():
     from _pytest.outcomes import skip
     from _pytest.pathlib import import_path
     from pytest import DoctestItem
+    import pytest
 else:
     Module = object
     DoctestItem = object
@@ -168,6 +169,8 @@ ENDPOINT_STAGING = "https://hub-ci.huggingface.co"
 # Not critical, only usable on the sandboxed CI instance.
 TOKEN = "hf_94wBhPGp6KrrTH3KDchhKpRxZwd6dmHWLL"
 
+
+
 if is_torch_available():
     import torch
 
@@ -183,8 +186,8 @@ def skipIfRocm(func=None, *, msg="test doesn't currently work on the ROCm stack"
 
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            if TEST_WITH_ROCM:  # noqa: F821
-                raise unittest.SkipTest(reason)
+            if IS_ROCM_SYSTEM:
+                pytest.skip(reason)
             else:
                 return fn(*args, **kwargs)
         return wrapper
