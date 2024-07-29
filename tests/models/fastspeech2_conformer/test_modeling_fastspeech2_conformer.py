@@ -127,6 +127,9 @@ class FastSpeech2ConformerModelTest(ModelTesterMixin, unittest.TestCase):
     test_resize_embeddings = False
     is_encoder_decoder = True
 
+    @skipIfRocm
+    def test_model_outputs_equivalence(self):
+        super().test_model_outputs_equivalence() 
     
     @skipIfRocm
     def test_multi_gpu_data_parallel_forward(self):
