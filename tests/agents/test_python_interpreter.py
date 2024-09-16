@@ -176,6 +176,23 @@ class PythonInterpreterTester(unittest.TestCase):
         assert result == 5
         self.assertDictEqual(state, {"x": 3, "test_dict": {"x": 3, "y": 5}, "print_outputs": ""})
 
+        code = "vendor = {'revenue': 31000, 'rent': 50312}; vendor['ratio'] = round(vendor['revenue'] / vendor['rent'], 2)"
+        state = {}
+        evaluate_python_code(code, {"min": min, "print": print, "round": round}, state=state)
+        assert state["vendor"] == {"revenue": 31000, "rent": 50312, "ratio": 0.62}
+
+    def test_subscript_string_with_string_index_raises_appropriate_error(self):
+        code = """
+search_results = "[{'title': 'Paris, Ville de Paris, France Weather Forecast | AccuWeather', 'href': 'https://www.accuweather.com/en/fr/paris/623/weather-forecast/623', 'body': 'Get the latest weather forecast for Paris, Ville de Paris, France , including hourly, daily, and 10-day outlooks. AccuWeather provides you with reliable and accurate information on temperature ...'}]"
+for result in search_results:
+    if 'current' in result['title'].lower() or 'temperature' in result['title'].lower():
+        current_weather_url = result['href']
+        print(current_weather_url)
+        break"""
+        with pytest.raises(InterpreterError) as e:
+            evaluate_python_code(code, BASE_PYTHON_TOOLS, state={})
+            assert "You're trying to subscript a string with a string index" in e
+
     def test_evaluate_for(self):
         code = "x = 0\nfor i in range(3):\n    x = i"
         state = {}
@@ -214,7 +231,7 @@ recur_fibo(6)"""
     def test_access_attributes(self):
         code = "integer = 1\nobj_class = integer.__class__\nobj_class"
         result = evaluate_python_code(code, {}, state={})
-        assert result == int
+        assert result is int
 
     def test_list_comprehension(self):
         code = "sentence = 'THESEAGULL43'\nmeaningful_sentence = '-'.join([char.lower() for char in sentence if char.isalpha()])"
@@ -573,13 +590,6 @@ except ValueError as e:
         evaluate_python_code(code, {"print": print, "len": len, "super": super, "str": str, "sum": sum}, state=state)
         assert state["exception_message"] == "An error occurred"
 
-    def test_subscript(self):
-        code = "vendor = {'revenue': 31000, 'rent': 50312}; vendor['ratio'] = round(vendor['revenue'] / vendor['rent'], 2)"
-
-        state = {}
-        evaluate_python_code(code, {"min": min, "print": print, "round": round}, state=state)
-        assert state["vendor"] == {"revenue": 31000, "rent": 50312, "ratio": 0.62}
-
     def test_print(self):
         code = "print(min([1, 2, 3]))"
         state = {}
@@ -591,7 +601,7 @@ except ValueError as e:
         code = "type_a = float(2); type_b = str; type_c = int"
         state = {}
         result = evaluate_python_code(code, {"float": float, "str": str, "int": int}, state=state)
-        assert result == int
+        assert result is int
 
     def test_tuple_id(self):
         code = """
