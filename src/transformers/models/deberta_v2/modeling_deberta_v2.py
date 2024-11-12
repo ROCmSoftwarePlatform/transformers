@@ -160,6 +160,7 @@ def get_mask(input, local_context):
 
     return mask, dropout
 
+
 # Copied from transformers.models.deberta.modeling_deberta.XDropout
 class XDropout(torch.autograd.Function):
     """Optimized dropout function to save computation and memory by using mask operation instead of multiplication."""
@@ -198,10 +199,6 @@ class XDropout(torch.autograd.Function):
         # if opset_version < 12:
         #   return torch.onnx.symbolic_opset9.dropout(g, input, dropout_p, train)
         return symbolic_opset12.dropout(g, input, dropout_p, train)
-
-class TorchNNDropout(torch.nn.Dropout):
-    def __init__(self, drop_prob):
-        super().__init__(drop_prob)
 
 # Copied from transformers.models.deberta.modeling_deberta.StableDropout
 class StableDropout(nn.Module):
@@ -642,6 +639,7 @@ class DisentangledSelfAttention(nn.Module):
             self.pos_ebd_size = self.max_relative_positions
             if self.position_buckets > 0:
                 self.pos_ebd_size = self.position_buckets
+
             self.pos_dropout = StableDropout(config.hidden_dropout_prob)
 
             if not self.share_att_key:
