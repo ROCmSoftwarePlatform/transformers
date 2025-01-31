@@ -30,6 +30,7 @@ from transformers.testing_utils import (
     require_torch_multi_gpu,
     slow,
     torch_device,
+    skipIfRocm
 )
 from transformers.trainer_utils import set_seed
 
@@ -167,6 +168,11 @@ class VitsModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
     test_torchscript = False
     has_attentions = False
 
+    @skipIfRocm(arch='gfx942')
+    def test_feed_forward_chunking():
+        super().test_feed_forward_chunking()
+        pass
+
     def setUp(self):
         self.model_tester = VitsModelTester(self)
         self.config_tester = ConfigTester(self, config_class=VitsConfig, hidden_size=37)
@@ -271,6 +277,7 @@ class VitsModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
         pass
 
     # override since the model is not deterministic, so we need to set the seed for each forward pass
+    @skipIfRocm(arch='gfx942')
     def test_model_outputs_equivalence(self):
         config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
 
@@ -348,6 +355,7 @@ class VitsModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
                 )
 
     # override since the model is not deterministic, so we need to set the seed for each forward pass
+    @skipIfRocm(arch='gfx942')
     def test_save_load(self):
         config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
 

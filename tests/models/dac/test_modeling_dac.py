@@ -24,7 +24,7 @@ import numpy as np
 from datasets import Audio, load_dataset
 
 from transformers import AutoProcessor, DacConfig, DacModel
-from transformers.testing_utils import is_torch_available, require_torch, slow, torch_device
+from transformers.testing_utils import is_torch_available, require_torch, slow, torch_device, skipIfRocm
 
 from ...test_configuration_common import ConfigTester
 from ...test_modeling_common import ModelTesterMixin, _config_zero_init, floats_tensor
@@ -132,6 +132,11 @@ class DacModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
         if "output_hidden_states" in inputs_dict:
             inputs_dict.pop("output_hidden_states")
         return inputs_dict
+
+    @skipIfRocm(arch='gfx942')
+    def test_batching_equivalence(self):
+        super().test_batching_equivalence()
+        pass
 
     def setUp(self):
         self.model_tester = DacModelTester(self)

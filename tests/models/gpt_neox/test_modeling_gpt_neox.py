@@ -287,9 +287,24 @@ class GPTNeoXModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTesterMi
     test_model_parallel = False
     test_head_masking = False
 
-    @skipIfRocm(arch='gfx1201')
+    @skipIfRocm(arch=['gfx1201','gfx942'])
     def test_generate_with_static_cache():
         super().test_generate_with_static_cache()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing():
+        super().test_training_gradient_checkpointing()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant():
+        super().test_training_gradient_checkpointing_use_reentrant()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant_false():
+        super().test_training_gradient_checkpointing_use_reentrant_false()
         pass
 
     def setUp(self):

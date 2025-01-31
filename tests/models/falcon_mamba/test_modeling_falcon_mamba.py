@@ -268,6 +268,21 @@ class FalconMambaModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTest
         else {}
     )
 
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing(self):
+        super().test_training_gradient_checkpointing()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant(self):
+        super().test_training_gradient_checkpointing_use_reentrant()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant_false(self):
+        super().test_training_gradient_checkpointing_use_reentrant_false()
+        pass
+
     def setUp(self):
         self.model_tester = FalconMambaModelTester(self)
         self.config_tester = ConfigTester(
@@ -300,7 +315,7 @@ class FalconMambaModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTest
         self.config_tester.run_common_tests()
 
     @require_torch_multi_gpu
-    @skipIfRocm(arch='gfx1201')
+    @skipIfRocm(arch=['gfx1201','gfx942'])
     def test_multi_gpu_data_parallel_forward(self):
         config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
 

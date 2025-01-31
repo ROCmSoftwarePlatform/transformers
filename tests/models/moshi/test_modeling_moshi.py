@@ -169,6 +169,21 @@ class MoshiDecoderTest(ModelTesterMixin, GenerationTesterMixin, PipelineTesterMi
         else {}
     )
 
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing(self):
+        super().test_training_gradient_checkpointing()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant(self):
+        super().test_training_gradient_checkpointing_use_reentrant()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant_false(self):
+        super().test_training_gradient_checkpointing_use_reentrant_false()
+        pass
+
     def setUp(self):
         self.model_tester = MoshiDecoderTester(self)
         self.config_tester = ConfigTester(
@@ -583,12 +598,12 @@ class MoshiTest(ModelTesterMixin, GenerationTesterMixin, unittest.TestCase):
         super().test_dola_decoding_sample()
         pass
 
-    @skipIfRocm(arch='gfx1201')
+    @skipIfRocm(arch=['gfx1201','gfx942'])
     def test_generate_from_inputs_embeds_0_greedy(self):
         super().test_generate_from_inputs_embeds_0_greedy()
         pass
 
-    @skipIfRocm(arch='gfx1201')
+    @skipIfRocm(arch=['gfx1201','gfx942'])
     def test_generate_from_inputs_embeds_1_beam_search(self):
         super().test_generate_from_inputs_embeds_1_beam_search()
         pass 

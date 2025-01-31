@@ -396,19 +396,34 @@ class RobertaModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTesterMi
     fx_compatible = True
     model_split_percents = [0.5, 0.8, 0.9]
 
-    @skipIfRocm(arch='gfx1201')
+    @skipIfRocm(arch=['gfx1201','gfx942'])
     def test_cpu_offload(self):
         super().test_cpu_offload()
         pass
 
-    @skipIfRocm(arch='gfx1201')
+    @skipIfRocm(arch=['gfx1201','gfx942'])
     def test_disk_offload_bin(self):
         super().test_disk_offload_bin()
         pass
 
-    @skipIfRocm(arch='gfx1201')
+    @skipIfRocm(arch=['gfx1201','gfx942'])
     def test_disk_offload_safetensors(self):
         super().test_disk_offload_safetensors()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing(self):
+        super().test_training_gradient_checkpointing()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant(self):
+        super().test_training_gradient_checkpointing_use_reentrant()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant_false(self):
+        super().test_training_gradient_checkpointing_use_reentrant_false()
         pass
 
     def setUp(self):

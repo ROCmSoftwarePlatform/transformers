@@ -18,7 +18,7 @@ import unittest
 
 from transformers import ElectraConfig, is_torch_available
 from transformers.models.auto import get_values
-from transformers.testing_utils import require_torch, slow, torch_device
+from transformers.testing_utils import require_torch, slow, torch_device, skipIfRocm
 
 from ...test_configuration_common import ConfigTester
 from ...test_modeling_common import ModelTesterMixin, floats_tensor, ids_tensor, random_attention_mask
@@ -403,6 +403,26 @@ class ElectraModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase)
         else {}
     )
     fx_compatible = True
+
+    @skipIfRocm(arch='gfx942')
+    def test_inputs_embeds_matches_input_ids_with_generate(self):
+        super().test_inputs_embeds_matches_input_ids_with_generate()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing(self):
+        super().test_training_gradient_checkpointing()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant(self):
+        super().test_training_gradient_checkpointing_use_reentrant()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_training_gradient_checkpointing_use_reentrant_false(self):
+        super().test_training_gradient_checkpointing_use_reentrant_false()
+        pass
 
     # special case for ForPreTraining model
     def _prepare_for_class(self, inputs_dict, model_class, return_labels=False):

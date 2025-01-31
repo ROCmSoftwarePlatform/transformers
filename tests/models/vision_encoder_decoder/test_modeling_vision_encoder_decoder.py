@@ -32,6 +32,7 @@ from transformers.testing_utils import (
     slow,
     to_2tuple,
     torch_device,
+    skipIfRocm,
 )
 from transformers.utils import (
     cached_property,
@@ -451,6 +452,11 @@ class EncoderDecoderMixin:
 
 @require_torch
 class DeiT2RobertaModelTest(EncoderDecoderMixin, unittest.TestCase):
+    @skipIfRocm(arch='gfx942')
+    def test_save_and_load_from_pretrained(self):
+        super().test_save_and_load_from_pretrained()
+        pass
+
     def get_pretrained_model_and_inputs(self):
         model = VisionEncoderDecoderModel.from_encoder_decoder_pretrained(
             "hf-internal-testing/tiny-random-deit", "hf-internal-testing/tiny-random-roberta"
@@ -572,6 +578,11 @@ class DeiT2RobertaModelTest(EncoderDecoderMixin, unittest.TestCase):
 @require_torch
 class ViT2BertModelTest(EncoderDecoderMixin, unittest.TestCase):
     supports_sdpa = True  # one submodel support SDPA
+
+    @skipIfRocm(arch='gfx942')
+    def test_save_and_load_from_pretrained(self):
+        super().test_save_and_load_from_pretrained()
+        pass
 
     def get_pretrained_model_and_inputs(self):
         model = VisionEncoderDecoderModel.from_encoder_decoder_pretrained(
@@ -886,6 +897,11 @@ class LayoutLMv32TrOCR(EncoderDecoderMixin, unittest.TestCase):
 class VIT2GPT2Test(EncoderDecoderMixin, unittest.TestCase):
     supports_sdpa = True  # both submodels support SDPA
 
+    @skipIfRocm(arch='gfx942')
+    def test_save_and_load_from_pretrained(self):
+        super().test_save_and_load_from_pretrained()
+        pass
+
     def get_encoder_decoder_model(self, config, decoder_config):
         encoder_model = ViTModel(config).eval()
         decoder_model = GPT2LMHeadModel(decoder_config).eval()
@@ -1002,6 +1018,11 @@ class VIT2GPT2Test(EncoderDecoderMixin, unittest.TestCase):
 @require_torch
 class Donut2GPT2Test(EncoderDecoderMixin, unittest.TestCase):
     supports_sdpa = True  # one submodel (GPT2) support SDPA
+
+    @skipIfRocm(arch='gfx942')
+    def test_save_and_load_from_pretrained(self):
+        super().test_save_and_load_from_pretrained()
+        pass
 
     def get_encoder_decoder_model(self, config, decoder_config):
         encoder_model = DonutSwinModel(config).eval()

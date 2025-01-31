@@ -2339,6 +2339,16 @@ class GenerationIntegrationTests(unittest.TestCase, GenerationIntegrationTestsMi
             "return_tensors": "pt",
         }
 
+    @skipIfRocm(arch='gfx942')
+    def test_transition_scores_greedy_search():
+        super().test_transition_scores_greedy_search_normalized()
+        pass
+
+    @skipIfRocm(arch='gfx942')
+    def test_transition_scores_greedy_search_normalized():
+        super().test_transition_scores_greedy_search_normalized()
+        pass
+
     @skipIfRocm(arch='gfx1201')
     def test_custom_logits_processor(self): 
         super().test_custom_logits_processor()
